@@ -5,8 +5,14 @@ on:
     branches: [main]
   pull_request:
 
+# Run jobs only for Joseph's own events and re-runs.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.actor }}-${{ github.triggering_actor }}
+  cancel-in-progress: true
+
 jobs:
   build:
+    if: ${{ github.actor == 'oudajosefu' && github.triggering_actor == 'oudajosefu' }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7

@@ -8,8 +8,10 @@ on:
 permissions:
   contents: write
 
+# Run jobs only for Joseph's own events and re-runs.
 jobs:
   release:
+    if: ${{ github.actor == 'oudajosefu' && github.triggering_actor == 'oudajosefu' }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
